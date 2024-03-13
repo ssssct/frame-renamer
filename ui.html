@@ -1,0 +1,164 @@
+<style>
+  /* Reset default browser styles */
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  b,
+  strong {
+    font-weight: bolder;
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  button,
+  select {
+    text-transform: none;
+  }
+
+  button,
+  [type='button'],
+  [type='reset'],
+  [type='submit'] {
+    cursor: pointer;
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+
+  :-moz-focusring {
+    outline: auto;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input::-moz-placeholder,
+  textarea::-moz-placeholder {
+    opacity: 1;
+    color: #9ca3af;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    opacity: 1;
+    color: #9ca3af;
+  }
+
+  /* Plugin styles */
+  .grid {
+    display: grid;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .my-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .layout {
+    padding: 20px;
+  }
+
+  .label {
+    display: inline-block;
+    text-align: left;
+    margin-right: 20px;
+    min-width: 50px;
+  }
+
+  .input {
+    background-color: #e5e7eb;
+    padding: 2px 5px;
+    display: inline-block;
+  }
+
+  .button {
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin: 5px;
+    text-align: center;
+  }
+
+  .button:hover {
+    outline: 1px solid black;
+  }
+
+  .button--rename {
+    background-color: black;
+    color: white;
+  }
+</style>
+<div class="layout">
+  <div class="flex my-10">
+    <label class="label">Prefix: </label>
+    <input class="input" type="text" id="js-prefix" value=""
+      placeholder="artboard_">
+  </div>
+  <div class="flex my-10">
+    <label class="label">Start: </label>
+    <input class="input" type="number" id="js-start" value="0">
+  </div>
+  <div class="center">
+    <button type="button" id="js-cancel"
+      class="button button--cancel">Cancel</button>
+    <button type="button" id="js-rename"
+      class="button button--rename">Rename</button>
+  </div>
+</div>
+<script>
+
+  document.getElementById('js-rename').onclick = () => {
+    const prefix = document.getElementById('js-prefix').value;
+    const start = parseInt(document.getElementById('js-start').value);
+    parent.postMessage({ pluginMessage: { type: 'rename-frames', prefix, start } }, '*')
+  }
+
+  document.getElementById('js-cancel').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  }
+
+</script>
